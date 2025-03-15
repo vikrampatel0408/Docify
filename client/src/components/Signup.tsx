@@ -14,7 +14,7 @@ const Signup: React.FC = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/signup", {
+      const response = await fetch(`${import.meta.env.VITE_AUTH_URL}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),

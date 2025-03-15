@@ -6,7 +6,7 @@ const LogoutButton: React.FC = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:5000/logout", { method: "POST"});
+      await fetch(`${import.meta.env.VITE_AUTH_URL}/logout`, { method: "POST"});
       localStorage.removeItem("isLoggedIn");
       navigate("/login");
     } catch (error) {

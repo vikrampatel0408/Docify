@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+const apiurl = import.meta.env.VITE_AUTH_URL
+
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,18 +13,20 @@ export const Login = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch(`${apiurl}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
       
       const result = await response.json();
-      console.log("Login Response", result);
+      // console.log("Login Response", result);
       if(response.status == 200){
         localStorage.setItem("token", result.token);
         localStorage.setItem("isLoggedIn", "true" );
         navigate('/');
+      }else{
+        setError("Failed to log in. Please try again.");
       }
     } catch (error) {
       console.error("Login Error", error);
