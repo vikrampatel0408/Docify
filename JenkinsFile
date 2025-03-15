@@ -16,10 +16,10 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
-                    sh '''
-        
+                    sh """
+                    echo "$DOCKER_PASSWORD" | docker login  -u "$DOCKER_USER" --password-stdin
                     docker-compose -f docker-compose.yml up --build -d
-                    '''
+                    """
                 }
             }
         }
